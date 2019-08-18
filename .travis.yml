@@ -1,6 +1,19 @@
+language: java
+
+sudo: false
+
 jdk:
- - openjdk8
-script:
-mvn verify
+  - openjdk8
+
+cache:
+  directories:
+    - $HOME/.m2
+
+script: ./mvnw clean verify
+
 after_success:
-after_failure:
+  - ./mvnw coveralls:report
+
+notifications:
+  email:
+on_failure: change
